@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Rocket</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: url('starss.png') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #0a0a2e; /* Fallback color */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Stars animation fallback if image doesn't load */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 160px 30px, #fff, transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: sparkle 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes sparkle {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-100px); }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            max-width: 90vw;
+        }
+
+        .logo {
+            width: 280px;
+            height: auto;
+            max-width: 80vw;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Placeholder for logo if image doesn't load */
+        .logo-placeholder {
+            width: 280px;
+            height: 200px;
+            max-width: 80vw;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 40px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .download-btn {
+            position: relative;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 300% 300%;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: all 0.3s ease;
+            animation: gradientShift 3s ease infinite;
+            min-width: 280px;
+            max-width: 80vw;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c, #667eea);
+            background-size: 300% 300%;
+            border-radius: 50px;
+            z-index: -1;
+            animation: gradientShift 3s ease infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .download-btn:hover::before {
+            opacity: 1;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
+        }
+
+        .download-btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .glow-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.8) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            50% { 
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .logo {
+                width: 250px;
+                margin-bottom: 30px;
+            }
+            
+            .logo-placeholder {
+                width: 250px;
+                height: 180px;
+                font-size: 20px;
+                margin-bottom: 30px;
+            }
+            
+            .download-btn {
+                padding: 16px 35px;
+                font-size: 16px;
+                min-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                width: 220px;
+                margin-bottom: 25px;
+            }
+            
+            .logo-placeholder {
+                width: 220px;
+                height: 160px;
+                font-size: 18px;
+                margin-bottom: 25px;
+            }
+            
+            .download-btn {
+                padding: 14px 30px;
+                font-size: 14px;
+                min-width: 220px;
+                letter-spacing: 1px;
+            }
+        }
+
+        /* Success message */
+        .download-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(76, 175, 80, 0.9);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .download-message.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="teamrocketlogo.png" alt="Team Rocket Logo" class="logo" onerror="this.style.display='none'; document.querySelector('.logo-placeholder').style.display='flex';">
+        <div class="logo-placeholder" style="display: none;">TEAM ROCKET</div>
+        
+        <button class="download-btn" onclick="downloadBrochure()">
+            <div class="glow-effect"></div>
+            Download Brochure
+        </button>
+    </div>
+
+    <div class="download-message" id="downloadMessage">
+        Brochure download started!
+    </div>
+
+    <script>
+        function downloadBrochure() {
+            // Create a temporary anchor element for download
+            const link = document.createElement('a');
+            link.href = 'Rocket-Team_Brochure-test.ppt'; // Path to your PPT file
+            link.download = 'Rocket-Team_Brochure-test.ppt';
+            
+            // Append to body, click, and remove
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Show success message
+            showDownloadMessage();
+            
+            // Add extra visual feedback
+            const btn = document.querySelector('.download-btn');
+            btn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                btn.style.transform = '';
+            }, 200);
+        }
+
+        function showDownloadMessage() {
+            const message = document.getElementById('downloadMessage');
+            message.classList.add('show');
+            
+            setTimeout(() => {
+                message.classList.remove('show');
+            }, 3000);
+        }
+
+        // Add touch feedback for mobile
+        document.querySelector('.download-btn').addEventListener('touchstart', function() {
+            this.style.transform = 'scale(0.98)';
+        });
+
+        document.querySelector('.download-btn').addEventListener('touchend', function() {
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 100);
+        });
+
+        // Prevent context menu on long press for mobile
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.closest('.download-btn')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
